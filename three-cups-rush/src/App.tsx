@@ -4,6 +4,7 @@ import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
 import {
   ErrorComponent,
+  Header,
   ThemedLayoutV2,
   ThemedSiderV2,
   useNotificationProvider,
@@ -23,9 +24,6 @@ import routerBindings, {
 import { App as AntdApp } from "antd";
 import { createClient } from "graphql-ws";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import { authProvider } from "./authProvider";
-import { Header } from "./components/header";
-import { ColorModeContextProvider } from "./contexts/color-mode";
 import {
   BlogPostCreate,
   BlogPostEdit,
@@ -42,26 +40,20 @@ import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 
-const API_URL = "https://api.nestjs-query.refine.dev/graphql";
-const WS_URL = "wss://api.nestjs-query.refine.dev/graphql";
-
-const gqlClient = new GraphQLClient(API_URL);
-const wsClient = createClient({ url: WS_URL });
 
 function App() {
   return (
     <BrowserRouter>
       <GitHubBanner />
       <RefineKbarProvider>
-        <ColorModeContextProvider>
           <AntdApp>
             <DevtoolsProvider>
               <Refine
-                dataProvider={dataProvider(gqlClient)}
-                liveProvider={liveProvider(wsClient)}
+                // dataProvider={dataProvider(gqlClient)}
+                // liveProvider={liveProvider(wsClient)}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
-                authProvider={authProvider}
+                //authProvider={authProvider}
                 resources={[
                   {
                     name: "blog_posts",
@@ -152,7 +144,6 @@ function App() {
               <DevtoolsPanel />
             </DevtoolsProvider>
           </AntdApp>
-        </ColorModeContextProvider>
       </RefineKbarProvider>
     </BrowserRouter>
   );
